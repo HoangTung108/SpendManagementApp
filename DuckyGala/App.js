@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'top',
+    // height: Platform.OS ==="ios" ? 200:100,
   },
     header:{
       color: "#fff",
