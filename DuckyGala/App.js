@@ -7,16 +7,24 @@ export default function App() {
   const[fontsLoaded,fontError] = useFonts ({
     "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
   });
-  const [text,setText] = useState ('');
+  const [text,text1,setText] = useState ('');
+  const value = 0;
   return (
     <View style={styles.container}>
       <Text style = {styles.header}>DuckyGala</Text>
-      <Text>Your Spend: {text}</Text>
+      <Text>Your Spend: {value}</Text>
       <TextInput style = {styles.inputText}
-      placeholder=' Cash here'
+      placeholder='The Reasons'
       onChangeText={ newText => setText (newText)}
       defaultValue= {text}
       />
+      <TextInput style = {styles.inputText}
+      placeholder='Amout here'
+      onChangeText={ newText => setText(newText)}
+      defaultValue= {text1}
+      />
+      <Button style = {styles.button} onPress = {() =>alert("hi") } title ="Plus" ></Button>
+      <Button style = {styles.button} onPress = {() =>alert("Deduct your amount")} title = "Eliminate"></Button>
     </View>
   );
 
@@ -36,6 +44,9 @@ const styles = StyleSheet.create({
     },
     inputText:{
       height: 40,
-
-    }
+    },
+    button:{
+      height:40,
+      width: 60,
+    },
 });
