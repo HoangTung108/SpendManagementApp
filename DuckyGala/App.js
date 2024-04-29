@@ -1,7 +1,6 @@
-import React from 'react-native';
 import { StyleSheet,TextInput, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useState } from 'react-native';
+import React, { useState } from 'react';
 
 
 export default function App() {
