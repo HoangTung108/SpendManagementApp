@@ -1,4 +1,4 @@
-import { StyleSheet,TextInput, Text, View } from 'react-native';
+import { StyleSheet,TextInput, Text, View, Alert,Button } from 'react-native';
 import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
 
@@ -23,8 +23,8 @@ export default function App() {
       onChangeText={ newText => setText(newText)}
       defaultValue= {text1}
       />
-      <Button style = {styles.button} onPress = {() =>alert("hi") } title ="Plus" ></Button>
-      <Button style = {styles.button} onPress = {() =>alert("Deduct your amount")} title = "Eliminate"></Button>
+      <Button style = {styles.button} onPress = { ()=>value +=1} title ="Plus" />
+      <Button style = {styles.button} onPress = {()=>alert("Deduct your amount")} title = "Eliminate"/>
     </View>
   );
 
