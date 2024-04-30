@@ -1,4 +1,4 @@
-import { StyleSheet,TextInput, Text, View, Alert,Button } from 'react-native';
+import { StyleSheet,TextInput, Text, View, Switch,Button } from 'react-native';
 import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
 
@@ -7,6 +7,8 @@ export default function App() {
   const[fontsLoaded,fontError] = useFonts ({
     "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
   });
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [text,text1,setText] = useState ('');
   const value = 0;
   return (
@@ -25,6 +27,13 @@ export default function App() {
       />
       <Button style = {styles.button} onPress = { ()=>value +=1} title ="Plus" />
       <Button style = {styles.button} onPress = {()=>alert("Deduct your amount")} title = "Eliminate"/>
+      <Switch
+        trackColor={{false: '#767577', true: '#81b0ff'}}
+        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+      />
     </View>
   );
 
