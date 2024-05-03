@@ -1,4 +1,4 @@
-import { StyleSheet,TextInput, Text, View, Switch,Button } from 'react-native';
+import { StyleSheet,TextInput, Text, View, Switch,Button, Alert } from 'react-native';
 import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
 
@@ -9,24 +9,51 @@ export default function App() {
   });
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const [text,text1,setText] = useState ('');
-  const value = 0;
+  const [text,setText] = useState ('');
+  const [number,setNum] = useState(0);
+  const [variable, setCount] = useState(0);
+  function Press() {
+    const num = parseFloat(number);
+    if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
+        setCount(variable + num);
+        setNum(0);
+        setText("");
+    } else if (isNaN(num)) {
+        Alert.alert("Error", "Invalid amount. Please enter a valid number.");
+    } else {
+        Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+    }
+  }
+  function Elimination(){
+    const num = parseFloat(number);
+    if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
+        setCount(variable - num);
+        setNum(0);
+        setText("");
+    } else if (isNaN(num)) {
+        Alert.alert("Error", "Invalid amount. Please enter a valid number.");
+    } else {
+        Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+    }
+  }
   return (
-    <View style={styles.container}>
+    <View style = {styles.container}>
       <Text style = {styles.header}>DuckyGala</Text>
-      <Text>Your Spend: {value}</Text>
+      <Text>Your Spend: {variable}</Text>
       <TextInput style = {styles.inputText}
       placeholder='The Reasons'
-      onChangeText={ newText => setText (newText)}
+      onChangeText={setText}
       defaultValue= {text}
+      keyboardType ="string"
       />
       <TextInput style = {styles.inputText}
       placeholder='Amout here'
-      onChangeText={ newText => setText(newText)}
-      defaultValue= {text1}
+      onChangeText={setNum}
+      defaultValue= {number}
+      keyboardType = "numeric"
       />
-      <Button style = {styles.button} onPress = { ()=>value +=1} title ="Plus" />
-      <Button style = {styles.button} onPress = {()=>alert("Deduct your amount")} title = "Eliminate"/>
+      <Button style = {styles.button} onPress = {Press} title ="Plus" />
+      <Button style = {styles.button} onPress = {Elimination} title = "Eliminate"/>
       <Switch
         trackColor={{false: '#767577', true: '#81b0ff'}}
         thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -34,7 +61,7 @@ export default function App() {
         onValueChange={toggleSwitch}
         value={isEnabled}
       />
-    </View>
+      </View>
   );
 
 }
@@ -42,20 +69,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'top',
+
   },
     header:{
+      flex:1/5,
       color: "#fff",
       backgroundColor: "#000",
+      width:500,
       fontFamily: "Pacifico",
       fontSize: 40,
+      paddingTop: 40,
+      position: "flexible",
     },
     inputText:{
       height: 40,
     },
     button:{
-      height:40,
-      width: 60,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
 });
