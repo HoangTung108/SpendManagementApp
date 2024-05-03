@@ -1,8 +1,6 @@
 import { StyleSheet,TextInput, Text, View, Switch,Button, Alert } from 'react-native';
 import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
-
-
 export default function App() {
   const[fontsLoaded,fontError] = useFonts ({
     "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
@@ -12,6 +10,8 @@ export default function App() {
   const [text,setText] = useState ('');
   const [number,setNum] = useState(0);
   const [variable, setCount] = useState(0);
+  const [title, setTitle] = useState(variable);
+  const [onPress, setBool] = useState(true);
   function Press() {
     const num = parseFloat(number);
     if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
@@ -27,7 +27,7 @@ export default function App() {
   function Elimination(){
     const num = parseFloat(number);
     if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
-        setCount(variable - num);
+        setCount(variable - num); 
         setNum(0);
         setText("");
     } else if (isNaN(num)) {
@@ -36,24 +36,40 @@ export default function App() {
         Alert.alert("Error", "Invalid reasons. Please enter a reason.");
     }
   }
+  function ParValue(){
+    if (onPress){
+        setTitle(variable + " VND");
+        setBool(false);
+    } else {
+      setTitle (variable.toString());
+      setBool(true);
+    }
+ 
+  }
   return (
     <View style = {styles.container}>
-      <Text style = {styles.header}>DuckyGala</Text>
-      <Text>Your Spend: {variable}</Text>
-      <TextInput style = {styles.inputText}
-      placeholder='The Reasons'
-      onChangeText={setText}
-      defaultValue= {text}
-      keyboardType ="string"
-      />
-      <TextInput style = {styles.inputText}
-      placeholder='Amout here'
-      onChangeText={setNum}
-      defaultValue= {number}
-      keyboardType = "numeric"
-      />
-      <Button style = {styles.button} onPress = {Press} title ="Plus" />
-      <Button style = {styles.button} onPress = {Elimination} title = "Eliminate"/>
+      <View style = {styles.header}>
+        <Text style = {styles.headertext}>DuckyGala</Text>
+      </View>
+      <View style = {styles.middle}>
+        <Text style = {styles.textMid}> Day: </Text>
+        <Text style = {styles.textMid} onPress = {ParValue}>Your Spend: {title}</Text>
+        <TextInput style = {styles.inputText}
+        placeholder='The Reasons'
+        onChangeText={setText}
+        defaultValue= {text}
+        />
+        <TextInput style = {styles.inputText}
+        placeholder='Amout here'
+        onChangeText={setNum}
+        defaultValue= {number}
+        keyboardType = "numeric"
+        />
+      </View>
+      <View style= {styles.buttonPos}>
+        <Button style = {styles.button} onPress = {Press} title ="Plus" />
+        <Button style = {styles.button} onPress = {Elimination} title = "Eliminate"/>
+      </View>
       <Switch
         trackColor={{false: '#767577', true: '#81b0ff'}}
         thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -69,20 +85,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-
   },
-    header:{
+  header:{
       flex:1/5,
-      color: "#fff",
       backgroundColor: "#000",
       width:500,
+    },
+    headertext:{
+      color: "#fff",
       fontFamily: "Pacifico",
       fontSize: 40,
       paddingTop: 40,
       position: "flexible",
     },
+    middle: {
+      flex: 1/3,
+      paddingTop: 100,
+    },
+    textMid:{
+      fontSize: 25,
+    },
     inputText:{
+      paddingTop: 80,
       height: 40,
+    },
+    buttonPos:{
+      paddingTop: 30,
     },
     button:{
       flexDirection: 'row',
