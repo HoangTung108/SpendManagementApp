@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.DuckyGala"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,11 +29,13 @@
     },
     "plugins": [
       [
-      "expo-font",
-      {
-        "fonts" :[ "./assets/fonts/Pacifico-Regular.ttf"]
-      }
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Pacifico-Regular.ttf"
+          ]
+        }
+      ]
     ]
-  ]
   }
 }

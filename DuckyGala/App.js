@@ -1,53 +1,55 @@
 import { StyleSheet,TextInput, Text, View, Switch,Button, Alert } from 'react-native';
+import { SafeAreaProvider,useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
-export default function App() {
-  const[fontsLoaded,fontError] = useFonts ({
-    "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
-  });
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const [text,setText] = useState ('');
-  const [number,setNum] = useState(0);
-  const [variable, setCount] = useState(0);
-  const [title, setTitle] = useState(variable);
-  const [onPress, setBool] = useState(true);
-  function Press() {
-    const num = parseFloat(number);
-    if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
-        setCount(variable + num);
-        setNum(0);
-        setText("");
-    } else if (isNaN(num)) {
-        Alert.alert("Error", "Invalid amount. Please enter a valid number.");
-    } else {
-        Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+function HomeScreen(){
+    const[fontsLoaded,fontError] = useFonts ({
+      "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
+    });
+    const insets = useSafeAreaInsets();
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const [text,setText] = useState ('');
+    const [number,setNum] = useState(0);
+    const [variable, setCount] = useState(0);
+    const [title, setTitle] = useState(variable);
+    const [onPress, setBool] = useState(true);
+    function Press() {
+      const num = parseFloat(number);
+      if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
+          setCount(variable + num);
+          setNum(0);
+          setText("");
+      } else if (isNaN(num)) {
+          Alert.alert("Error", "Invalid amount. Please enter a valid number.");
+      } else {
+          Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+      }
     }
-  }
-  function Elimination(){
-    const num = parseFloat(number);
-    if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
-        setCount(variable - num); 
-        setNum(0);
-        setText("");
-    } else if (isNaN(num)) {
-        Alert.alert("Error", "Invalid amount. Please enter a valid number.");
-    } else {
-        Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+    function Elimination(){
+      const num = parseFloat(number);
+      if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
+          setCount(variable - num); 
+          setNum(0);
+          setText("");
+      } else if (isNaN(num)) {
+          Alert.alert("Error", "Invalid amount. Please enter a valid number.");
+      } else {
+          Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+      }
     }
-  }
-  function ParValue(){
-    if (onPress){
-        setTitle(variable + " VND");
-        setBool(false);
-    } else {
-      setTitle (variable.toString());
-      setBool(true);
+    function ParValue(){
+      if (onPress){
+          setTitle(variable + " VND");
+          setBool(false);
+      } else {
+        setTitle (variable.toString());
+        setBool(true);
+      }
+   
     }
- 
-  }
   return (
-    <View style = {styles.container}>
+    <View style = {{ flex: 1,paddingTop: insets.top, backgroundColor: '#fff'}}>
       <View style = {styles.header}>
         <Text style = {styles.headertext}>DuckyGala</Text>
       </View>
@@ -77,19 +79,21 @@ export default function App() {
         onValueChange={toggleSwitch}
         value={isEnabled}
       />
-      </View>
+        </View>
   );
 
 }
+export default function App() {
+  return(
+  <SafeAreaProvider>
+    <HomeScreen />
+  </SafeAreaProvider>);
+}
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   header:{
       flex:1/5,
       backgroundColor: "#000",
-      width:500,
+      width:430,
     },
     headertext:{
       color: "#fff",
