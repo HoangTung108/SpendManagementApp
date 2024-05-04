@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, Button, Switch, StyleSheet, Alert } from 'react-native';
-import { SafeAreaProvider,useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
 
-function HomeScreen() {
-    const[fontsLoaded,fontError] = useFonts ({
-      "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
-    });
+function HomeScreen({ navigation }) {
+  const [fontsLoaded, fontError] = useFonts({
+    "Pacifico": require("./assets/fonts/Pacifico-Regular.ttf"),
+  });
   const insets = useSafeAreaInsets();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [text, setText] = useState('');
-  const [number, setNumber] = useState('');
-  const [variable, setVariable] = useState(0);
-  const [title, setTitle] = useState("");
-  const [onPress, setOnPress] = useState(true);
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  const [text, setText] = React.useState('');
+  const [number, setNumber] = React.useState('');
+  const [variable, setVariable] = React.useState(0);
+  const [title, setTitle] = React.useState("");
+  const [onPress, setOnPress] = React.useState(true);
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
@@ -46,15 +48,13 @@ function HomeScreen() {
   };
 
   return (
-    <View style={{   flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: insets.top,}}>
+    <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
       <View style={styles.header}>
         <Text style={styles.headertext}>DuckyGala</Text>
       </View>
       <View style={styles.middle}>
         <Text style={styles.textMid}>Day:</Text>
-        <Text style={styles.textMid} onPress = {handleParValue}>
+        <Text style={styles.textMid} onPress={handleParValue}>
           Your Spend: {variable} {title}
         </Text>
         <TextInput
@@ -82,14 +82,35 @@ function HomeScreen() {
         onValueChange={toggleSwitch}
         value={isEnabled}
       />
+      <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
+      <Button title="Go to Second Screen" onPress={() => navigation.navigate('SecondScreen')} />
+    </View>
     </View>
   );
 }
+
+function SecondScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Second Screen</Text>
+      <Button title="Go to Home Screen" onPress={() => navigation.navigate('Home')} />
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
 export default function App() {
-  return(
-  <SafeAreaProvider>
-    <HomeScreen />
-  </SafeAreaProvider>);
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="SecondScreen" component={SecondScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -127,10 +148,10 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 20,
   },
-    button: {
+  button: {
     width: '40%',
     borderRadius: 5,
-    backgroundColor: '#768', 
+    backgroundColor: '#768',
     paddingVertical: 10,
     alignItems: 'center',
   },
