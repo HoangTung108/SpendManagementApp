@@ -83,17 +83,16 @@ function HomeScreen({ navigation }) {
         value={isEnabled}
       />
       <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
-      <Button title="Go to Second Screen" onPress={() => navigation.navigate('SecondScreen')} />
+      <Button title="Go to Second Screen" onPress={() => navigation.navigate('Home')} />
     </View>
     </View>
   );
 }
 
-function SecondScreen({ navigation }) {
+function SecondScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Second Screen</Text>
-      <Button title="Go to Home Screen" onPress={() => navigation.navigate('Home')} />
     </View>
   );
 }
@@ -104,9 +103,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-          <Stack.Screen name="SecondScreen" component={SecondScreen} />
+        <Stack.Navigator initialRouteName="Menu">
+          <Stack.Screen name="Menu" component={HomeScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="Home" component={SecondScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
