@@ -1,87 +1,89 @@
-import { StyleSheet,TextInput, Text, View, Switch,Button, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, Switch, StyleSheet, Alert } from 'react-native';
 import { SafeAreaProvider,useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
-import React, { useState } from 'react';
-function HomeScreen(){
+
+function HomeScreen() {
     const[fontsLoaded,fontError] = useFonts ({
       "Pacifico" : require("./assets/fonts/Pacifico-Regular.ttf"),
     });
-    const insets = useSafeAreaInsets();
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-    const [text,setText] = useState ('');
-    const [number,setNum] = useState(0);
-    const [variable, setCount] = useState(0);
-    const [title, setTitle] = useState(variable);
-    const [onPress, setBool] = useState(true);
-    function Press() {
-      const num = parseFloat(number);
-      if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
-          setCount(variable + num);
-          setNum(0);
-          setText("");
-      } else if (isNaN(num)) {
-          Alert.alert("Error", "Invalid amount. Please enter a valid number.");
+  const insets = useSafeAreaInsets();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [text, setText] = useState('');
+  const [number, setNumber] = useState('');
+  const [variable, setVariable] = useState(0);
+  const [title, setTitle] = useState("");
+  const [onPress, setOnPress] = useState(true);
+
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+  };
+
+  const handlePress = (isAdding) => {
+    const num = parseFloat(number);
+    if (!isNaN(num) && typeof text === 'string' && text.trim() !== '') {
+      if (isAdding) {
+        setVariable(variable + num);
       } else {
-          Alert.alert("Error", "Invalid reasons. Please enter a reason.");
+        setVariable(variable - num);
       }
+      setNumber('');
+      setText('');
+    } else if (isNaN(num)) {
+      Alert.alert('Error', 'Invalid amount. Please enter a valid number.');
+    } else {
+      Alert.alert('Error', 'Invalid reasons. Please enter a reason.');
     }
-    function Elimination(){
-      const num = parseFloat(number);
-      if (!isNaN(num) && typeof text === "string" && text.trim() !== "") {
-          setCount(variable - num); 
-          setNum(0);
-          setText("");
-      } else if (isNaN(num)) {
-          Alert.alert("Error", "Invalid amount. Please enter a valid number.");
-      } else {
-          Alert.alert("Error", "Invalid reasons. Please enter a reason.");
-      }
+  };
+
+  const handleParValue = () => {
+    if (onPress) {
+      setTitle('VND');
+    } else {
+      setTitle(" ");
     }
-    function ParValue(){
-      if (onPress){
-          setTitle(variable + " VND");
-          setBool(false);
-      } else {
-        setTitle (variable.toString());
-        setBool(true);
-      }
-   
-    }
+    setOnPress(!onPress);
+  };
+
   return (
-    <View style = {{ flex: 1,paddingTop: insets.top, backgroundColor: '#fff'}}>
-      <View style = {styles.header}>
-        <Text style = {styles.headertext}>DuckyGala</Text>
+    <View style={{   flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: insets.top,}}>
+      <View style={styles.header}>
+        <Text style={styles.headertext}>DuckyGala</Text>
       </View>
-      <View style = {styles.middle}>
-        <Text style = {styles.textMid}> Day: </Text>
-        <Text style = {styles.textMid} onPress = {ParValue}>Your Spend: {title}</Text>
-        <TextInput style = {styles.inputText}
-        placeholder='The Reasons'
-        onChangeText={setText}
-        defaultValue= {text}
+      <View style={styles.middle}>
+        <Text style={styles.textMid}>Day:</Text>
+        <Text style={styles.textMid} onPress = {handleParValue}>
+          Your Spend: {variable} {title}
+        </Text>
+        <TextInput
+          style={styles.inputText}
+          placeholder="The Reasons"
+          onChangeText={setText}
+          value={text}
         />
-        <TextInput style = {styles.inputText}
-        placeholder='Amout here'
-        onChangeText={setNum}
-        defaultValue= {number}
-        keyboardType = "numeric"
+        <TextInput
+          style={styles.inputText}
+          placeholder="Amount here"
+          onChangeText={setNumber}
+          value={number}
+          keyboardType="numeric"
         />
       </View>
-      <View style= {styles.buttonPos}>
-        <Button style = {styles.button} onPress = {Press} title ="Plus" />
-        <Button style = {styles.button} onPress = {Elimination} title = "Eliminate"/>
+      <View style={styles.buttonPos}>
+        <Button style={styles.button} onPress={() => handlePress(true)} title="Plus" />
+        <Button style={styles.button} onPress={() => handlePress(false)} title="Eliminate" />
       </View>
       <Switch
-        trackColor={{false: '#767577', true: '#81b0ff'}}
+        trackColor={{ false: '#767577', true: '#81b0ff' }}
         thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
       />
-        </View>
+    </View>
   );
-
 }
 export default function App() {
   return(
@@ -89,35 +91,47 @@ export default function App() {
     <HomeScreen />
   </SafeAreaProvider>);
 }
+
 const styles = StyleSheet.create({
-  header:{
-      flex:1/5,
-      backgroundColor: "#000",
-      width:430,
-    },
-    headertext:{
-      color: "#fff",
-      fontFamily: "Pacifico",
-      fontSize: 40,
-      paddingTop: 40,
-      position: "flexible",
-    },
-    middle: {
-      flex: 1/3,
-      paddingTop: 100,
-    },
-    textMid:{
-      fontSize: 25,
-    },
-    inputText:{
-      paddingTop: 80,
-      height: 40,
-    },
-    buttonPos:{
-      paddingTop: 30,
-    },
-    button:{
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
+  header: {
+    backgroundColor: '#000',
+    width: '100%',
+    paddingTop: 40,
+    paddingBottom: 10,
+    alignItems: 'center',
+  },
+  headertext: {
+    color: '#fff',
+    fontFamily: 'Pacifico',
+    fontSize: 40,
+  },
+  middle: {
+    alignItems: 'center',
+    paddingTop: 30,
+  },
+  textMid: {
+    fontSize: 25,
+    paddingBottom: 10,
+  },
+  inputText: {
+    height: 40,
+    width: '80%',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  buttonPos: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingTop: 20,
+  },
+    button: {
+    width: '40%',
+    borderRadius: 5,
+    backgroundColor: '#768', 
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
 });
