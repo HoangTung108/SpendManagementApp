@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, Alert } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,16 +10,12 @@ function HomeScreen({ navigation }) {
     "Pacifico": require("./assets/fonts/Pacifico-Regular.ttf"),
   });
   const insets = useSafeAreaInsets();
-  const [isEnabled, setIsEnabled] = React.useState(false);
-  const [text, setText] = React.useState('');
-  const [number, setNumber] = React.useState('');
-  const [variable, setVariable] = React.useState(0);
-  const [title, setTitle] = React.useState("");
-  const [onPress, setOnPress] = React.useState(true);
-
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
-  };
+  const [text, setText] = useState('');
+  const [number, setNumber] = useState('');
+  const [variable, setVariable] = useState(0);
+  const [title, setTitle] = useState("");
+  const [onPress, setOnPress] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = (isAdding) => {
     const num = parseFloat(number);
@@ -48,11 +44,18 @@ function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
+    <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
+      flexDirection: 'collumn', }}>
       <View style={styles.header}>
         <Text style={styles.headertext}>DuckyGala</Text>
       </View>
       <View style={styles.middle}>
+        <Modal  animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
         <Text style={styles.textMid}>Day:</Text>
         <Text style={styles.textMid} onPress={handleParValue}>
           Your Spend: {variable} {title}
@@ -70,29 +73,45 @@ function HomeScreen({ navigation }) {
           value={number}
           keyboardType="numeric"
         />
-      </View>
-      <View style={styles.buttonPos}>
+        <View style={styles.buttonPos}>
         <Button style={styles.button} onPress={() => handlePress(true)} title="Plus" />
         <Button style={styles.button} onPress={() => handlePress(false)} title="Eliminate" />
+        <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+        </View>
+        </Modal>
+        <View>
+        <Pressable
+        style={[styles.circleButton]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable>
+        </View>
       </View>
-      <Switch
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
       <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
-      <Button title="Go to Second Screen" onPress={() => navigation.navigate('Home')} />
+      <Button title="Setting" onPress={() => navigation.navigate('Home')} />
     </View>
     </View>
   );
 }
 
 function SecondScreen() {
+    const [isEnabled, setIsEnabled] = React.useState(false);
+    const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+  };
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Second Screen</Text>
+        <Switch
+        trackColor={{ false: '#767577', true: '#81b0ff' }}
+        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+      />
     </View>
   );
 }
@@ -114,11 +133,18 @@ export default function App() {
 
 const styles = StyleSheet.create({
   header: {
+    flex:1/2,
     backgroundColor: '#000',
     width: '100%',
     paddingTop: 40,
     paddingBottom: 10,
     alignItems: 'center',
+    shadowColor: "#CCC",
+    shadowOffset: {
+      width: 0, 
+      height: 5},
+    shadowOpacity: 2,
+    shadowRadius: 0.25,
   },
   headertext: {
     color: '#fff',
@@ -126,10 +152,13 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   middle: {
+    flex:2,
     alignItems: 'center',
-    paddingTop: 30,
+    paddingTop: 60,
   },
   textMid: {
+    alignContent: "center",
+    alignItems: "center",
     fontSize: 25,
     paddingBottom: 10,
   },
@@ -149,9 +178,19 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '40%',
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: '#768',
     paddingVertical: 10,
     alignItems: 'center',
   },
+  positionAddItem:{
+    flex: 3,
+  },
+  circleButton:{
+    width: '40%',
+    borderRadius: 10,
+    backgroundColor: '#CCC',
+    alignItems: 'center',
+  
+  }
 });
