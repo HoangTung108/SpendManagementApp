@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable } from 'react-native';
+import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -27,6 +27,7 @@ function HomeScreen({ navigation }) {
       }
       setNumber('');
       setText('');
+      setModalVisible(!modalVisible);
     } else if (isNaN(num)) {
       Alert.alert('Error', 'Invalid amount. Please enter a valid number.');
     } else {
@@ -50,16 +51,16 @@ function HomeScreen({ navigation }) {
         <Text style={styles.headertext}>DuckyGala</Text>
       </View>
       <View style={styles.middle}>
+      <Text style={styles.textMid}>Day:</Text>
+        <Text style={styles.textMid} onPress={handleParValue}>
+          Your Spend: {variable} {title}
+        </Text>
         <Modal  animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <Text style={styles.textMid}>Day:</Text>
-        <Text style={styles.textMid} onPress={handleParValue}>
-          Your Spend: {variable} {title}
-        </Text>
         <TextInput
           style={styles.inputText}
           placeholder="The Reasons"
@@ -76,18 +77,13 @@ function HomeScreen({ navigation }) {
         <View style={styles.buttonPos}>
         <Button style={styles.button} onPress={() => handlePress(true)} title="Plus" />
         <Button style={styles.button} onPress={() => handlePress(false)} title="Eliminate" />
-        <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
         </View>
         </Modal>
-        <View>
+        <View style = {styles.positionAddItem}>
         <Pressable
         style={[styles.circleButton]}
         onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Show Modal</Text>
+        <Image source = {require("./assets/plus.png")} style = { { width: 20, height: 20,}}></Image>
         </Pressable>
         </View>
       </View>
