@@ -48,10 +48,10 @@ function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
       flexDirection: 'collumn', }}>
-      <LinearGradient
-        // Background Linear Gradient
+        <LinearGradient
         colors={["#000",'#A455FF', 'transparent']}
-        style={{ backgroundColor:'#ffbaff' ,paddingTop: insets.top, height: 900,   zIndex: -99, }}
+        style={{ backgroundColor:'#ffbaff' ,top: insets.top,  left: 0,right: 0,
+        height: 900,  position: 'absolute',  }}
       />
       <View style={styles.middle}>
       <Text style={styles.textMid}>Day:</Text>
@@ -88,12 +88,13 @@ function HomeScreen({ navigation }) {
         </View>
         </View>
         </Modal>
-        <View style = {styles.positionAddItem}>
-        </View>
+   
       </View>
-      <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
+ 
+      <View style={{ flex: 1, paddingTop: insets.top }}>
       <Button title="Setting" onPress={() => navigation.navigate('Home')} />
     </View>
+
     <Pressable
         style={[styles.circleButton]}
         onPress={() => setModalVisible(true)}>
@@ -149,12 +150,14 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   middle: {
+   
     flex:2,
     alignItems: 'center',
     paddingTop: 60,
     zIndex: 1,
   },
   textMid: {
+    color: '#fff',
     alignContent: "center",
     alignItems: "center",
     fontSize: 25,
@@ -180,11 +183,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#768',
     paddingVertical: 10,
     alignItems: 'center',
-  },
-  positionAddItem:{
-    flex: 2,
-    width: "100%",
-    height : 300,
   },
   circleButton:{
     width: '20%',
