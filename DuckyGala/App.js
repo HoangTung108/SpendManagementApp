@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image } from 'react-native';
+import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {LinearGradient} from "expo-linear-gradient";
 import { useFonts } from 'expo-font';
 
 function HomeScreen({ navigation }) {
@@ -47,9 +48,11 @@ function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
       flexDirection: 'collumn', }}>
-      <View style={styles.header}>
-        <Text style={styles.headertext}>DuckyGala</Text>
-      </View>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#000",'#A455FF', 'transparent']}
+        style={{ backgroundColor:'#ffbaff' ,paddingTop: insets.top, height: 900,   zIndex: -99, }}
+      />
       <View style={styles.middle}>
       <Text style={styles.textMid}>Day:</Text>
         <Text style={styles.textMid} onPress={handleParValue}>
@@ -61,11 +64,10 @@ function HomeScreen({ navigation }) {
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        
         <View style = {styles.modalView}>
           <Pressable
           onPress={() =>{setModalVisible(!modalVisible)} }>
-          <Image source={require("./assets/cross.png")} style = {{width: 20, height: 20}} ></Image>
+          <Image source={require("./assets/cross.png")} style = {{width: 20, height:20}} ></Image>
           </Pressable>
           <TextInput
           style={styles.inputText}
@@ -87,16 +89,22 @@ function HomeScreen({ navigation }) {
         </View>
         </Modal>
         <View style = {styles.positionAddItem}>
-        <Pressable
-        style={[styles.circleButton]}
-        onPress={() => setModalVisible(true)}>
-        <Image source = {require("./assets/plus.png")} style = { { width: 20, height: 20,}}></Image>
-        </Pressable>
         </View>
       </View>
       <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top }}>
       <Button title="Setting" onPress={() => navigation.navigate('Home')} />
     </View>
+    <Pressable
+        style={[styles.circleButton]}
+        onPress={() => setModalVisible(true)}>
+        <Image source = {require("./assets/plus.png")} style = { { width: 50, height: 50 }}></Image>
+    </Pressable>
+    <View style={styles.toolbar}>
+        <Text style={styles.headertext}>Home</Text>
+    </View>
+    
+
+   
     </View>
   );
 }
@@ -135,20 +143,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flex:1/2,
-    backgroundColor: '#000',
-    width: '100%',
-    paddingTop: 40,
-    paddingBottom: 10,
-    alignItems: 'center',
-    shadowColor: "#CCC",
-    shadowOffset: {
-      width: 0, 
-      height: 5},
-    shadowOpacity: 2,
-    shadowRadius: 0.25,
-  },
   headertext: {
     color: '#fff',
     fontFamily: 'Pacifico',
@@ -158,6 +152,7 @@ const styles = StyleSheet.create({
     flex:2,
     alignItems: 'center',
     paddingTop: 60,
+    zIndex: 1,
   },
   textMid: {
     alignContent: "center",
@@ -187,15 +182,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   positionAddItem:{
-    flex: 3/4,
-    width: 100,
-    height : 100,
+    flex: 2,
+    width: "100%",
+    height : 300,
   },
   circleButton:{
-    width: '40%',
-    borderRadius: 10,
-    backgroundColor: '#CCC',
+    width: '20%',
+    height: "10%",
+    borderRadius: "100%",
+    backgroundColor: '#003B64',
     alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    alignSelf: 'center',
+    bottom:-30,
+    zIndex:1,
   },
   modalView: {
     margin: 200,
@@ -211,5 +212,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  toolbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#001932',
+    height: 100,
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
