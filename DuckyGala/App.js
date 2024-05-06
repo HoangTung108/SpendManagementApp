@@ -51,7 +51,7 @@ function HomeScreen({ navigation }) {
         <LinearGradient
         colors={["#000",'#A455FF', 'transparent']}
         style={{ backgroundColor:'#ffbaff' ,top: insets.top,  left: 0,right: 0,
-        height: 900,  position: 'absolute',  }}
+        height: "100%",  position: 'absolute',  }}
       />
       <View style={styles.middle}>
       <Text style={styles.textMid}>Day:</Text>
@@ -88,7 +88,6 @@ function HomeScreen({ navigation }) {
         </View>
         </View>
         </Modal>
-   
       </View>
  
       <View style={{ flex: 1, paddingTop: insets.top }}>
