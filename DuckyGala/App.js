@@ -61,7 +61,13 @@ function HomeScreen({ navigation }) {
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <TextInput
+        
+        <View style = {styles.modalView}>
+          <Pressable
+          onPress={() =>{setModalVisible(!modalVisible)} }>
+          <Image source={require("./assets/cross.png")} style = {{width: 20, height: 20}} ></Image>
+          </Pressable>
+          <TextInput
           style={styles.inputText}
           placeholder="The Reasons"
           onChangeText={setText}
@@ -77,6 +83,7 @@ function HomeScreen({ navigation }) {
         <View style={styles.buttonPos}>
         <Button style={styles.button} onPress={() => handlePress(true)} title="Plus" />
         <Button style={styles.button} onPress={() => handlePress(false)} title="Eliminate" />
+        </View>
         </View>
         </Modal>
         <View style = {styles.positionAddItem}>
@@ -180,13 +187,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   positionAddItem:{
-    flex: 3,
+    flex: 3/4,
+    width: 100,
+    height : 100,
   },
   circleButton:{
     width: '40%',
     borderRadius: 10,
     backgroundColor: '#CCC',
     alignItems: 'center',
-  
-  }
+  },
+  modalView: {
+    margin: 200,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 100,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });
