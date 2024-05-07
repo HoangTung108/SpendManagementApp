@@ -49,10 +49,14 @@ function HomeScreen({ navigation }) {
     <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
       flexDirection: 'collumn', }}>
         <LinearGradient
-        colors={["#000",'#A455FF', 'transparent']}
-        style={{ backgroundColor:'#ffbaff' ,top: insets.top,  left: 0,right: 0,
-        height: "100%",  position: 'absolute',  }}
+        colors={["#6a9cfd", "#ffb8d0"]}
+        style={{ backgroundColor:"#ffb8d0" ,
+        top: insets.top,  
+        left: 0,
+        right: 0,
+        height: "100%",  position: 'absolute'  }}
       />
+      <Text style={styles.headertext}>Home</Text>
       <View style={styles.middle}>
       <Text style={styles.textMid}>Day:</Text>
         <Text style={styles.textMid} onPress={handleParValue}>
@@ -89,22 +93,19 @@ function HomeScreen({ navigation }) {
         </View>
         </Modal>
       </View>
- 
-      <View style={{ flex: 1, paddingTop: insets.top }}>
-      <Button title="Setting" onPress={() => navigation.navigate('Home')} />
-    </View>
 
     <Pressable
         style={[styles.circleButton]}
         onPress={() => setModalVisible(true)}>
-        <Image source = {require("./assets/plus.png")} style = { { width: 50, height: 50 }}></Image>
+        <Image source = {require("./assets/plus.png")} style = { { width: 50, height: 50, tintColor:"#fff" }}></Image>
     </Pressable>
     <View style={styles.toolbar}>
-        <Text style={styles.headertext}>Home</Text>
+      <Pressable
+      style={styles.Setting}
+      onPress= {() => navigation.navigate('Home')}>
+      <Image source={require("./assets/settings.png")} style ={{width:50, height:50, tintColor: "#fff"}} ></Image>
+      </Pressable>
     </View>
-    
-
-   
     </View>
   );
 }
@@ -146,10 +147,9 @@ const styles = StyleSheet.create({
   headertext: {
     color: '#fff',
     fontFamily: 'Pacifico',
-    fontSize: 40,
+    fontSize: 60,
   },
   middle: {
-   
     flex:2,
     alignItems: 'center',
     paddingTop: 60,
@@ -187,12 +187,18 @@ const styles = StyleSheet.create({
     width: '20%',
     height: "10%",
     borderRadius: "100%",
-    backgroundColor: '#003B64',
+    backgroundColor: '#ffb8d0',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
     alignSelf: 'center',
     bottom:-30,
+    zIndex:1,
+  },
+  Setting:{
+    alignSelf: 'center',
+    left: 100,
+    bottom:0,
     zIndex:1,
   },
   modalView: {
@@ -211,10 +217,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   toolbar: {
+    position: 'relative',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#001932',
+    backgroundColor: '#fee5e1',
     height: 100,
   },
   button: {
