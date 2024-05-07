@@ -45,7 +45,7 @@ function HomeScreen({ navigation }) {
     setOnPress(!onPress);
   };
 
-  return (
+return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
       flexDirection: 'collumn', }}>
         <LinearGradient
@@ -71,7 +71,7 @@ function HomeScreen({ navigation }) {
         <View style = {styles.modalView}>
           <Pressable
           onPress={() =>{setModalVisible(!modalVisible)} }>
-          <Image source={require("./assets/cross.png")} style = {{width: 20, height:20}} ></Image>
+          <Image source={require("./assets/cross.png")} style = {{width: 20, height:20, left:"45%",}} ></Image>
           </Pressable>
           <TextInput
           style={styles.inputText}
@@ -93,7 +93,6 @@ function HomeScreen({ navigation }) {
         </View>
         </Modal>
       </View>
-
     <Pressable
         style={[styles.circleButton]}
         onPress={() => setModalVisible(true)}>
@@ -102,7 +101,7 @@ function HomeScreen({ navigation }) {
     <View style={styles.toolbar}>
       <Pressable
       style={styles.Setting}
-      onPress= {() => navigation.navigate('Home')}>
+      onPress= {() => navigation.navigate('Setting')}>
       <Image source={require("./assets/settings.png")} style ={{width:50, height:50, tintColor: "#fff"}} ></Image>
       </Pressable>
     </View>
@@ -136,7 +135,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Menu">
           <Stack.Screen name="Menu" component={HomeScreen} options={{ headerShown: false }}/>
-          <Stack.Screen name="Home" component={SecondScreen} />
+          <Stack.Screen name="Setting" component={SecondScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
@@ -145,10 +144,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   headertext: {
+    left:20,
     color: '#fff',
     fontFamily: 'Pacifico',
-    fontSize: 60,
-  },
+    fontSize: 50,},
   middle: {
     flex:2,
     alignItems: 'center',
@@ -159,15 +158,17 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignContent: "center",
     alignItems: "center",
+    fontFamily: 'Pacifico',
     fontSize: 25,
     paddingBottom: 10,
   },
   inputText: {
-    height: 40,
+    height: "22%",
     width: '80%',
-    borderWidth: 1,
+    top:10,
+    borderWidth: 1.5,
     borderColor: '#ccc',
-    marginBottom: 10,
+    marginBottom: 15,
     paddingHorizontal: 10,
   },
   buttonPos: {
@@ -202,26 +203,31 @@ const styles = StyleSheet.create({
     zIndex:1,
   },
   modalView: {
-    margin: 200,
+    height:230,
+    width: "80%",
+    top:'40%',
+    padding:20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 100,
     alignItems: 'center',
+    alignSelf: "center",
+    position:"relative",
     shadowColor: '#000',
+  
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 10,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+
   },
   toolbar: {
     position: 'relative',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#fee5e1',
+    backgroundColor: '#fdccd4',
     height: 100,
   },
   button: {
