@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
