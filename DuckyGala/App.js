@@ -1,11 +1,25 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image } from 'react-native';
+import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image,TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {LinearGradient} from "expo-linear-gradient";
 import { useFonts } from 'expo-font';
 
+const Block = () =>{
+  return(
+    <TouchableOpacity
+    style = {styles.box}
+    accessible={true}
+    accessibilityLabel="Tap me!"
+    // onPress={() => navigation.navigate('ScreenView')}
+    >
+    <View style={styles.button}>
+    <Text style={styles.buttonText}>Press me!</Text>
+    </View>
+    </TouchableOpacity>
+  )
+};
 function HomeScreen({ navigation }) {
   const [fontsLoaded, fontError] = useFonts({
     "Pacifico": require("./assets/fonts/Pacifico-Regular.ttf"),
@@ -17,7 +31,7 @@ function HomeScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [onPress, setOnPress] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [blocks, setBlocks] = useState([]);
   const handlePress = (isAdding) => {
     const num = parseFloat(number);
     if (!isNaN(num) && typeof text === 'string' && text.trim() !== '') {
@@ -43,6 +57,15 @@ function HomeScreen({ navigation }) {
       setTitle(" ");
     }
     setOnPress(!onPress);
+  };
+
+  const addBlock = () => {
+    setBlocks([...blocks, {}]); // Thêm một đối tượng mới vào mảng blocks
+  };
+  const deleteBlock = (index) => {
+    const newBlocks = [...blocks];
+    newBlocks.splice(index, 1);
+    setBlocks(newBlocks);
   };
 
 return (
@@ -93,9 +116,17 @@ return (
         </View>
         </Modal>
       </View>
+        <ScrollView>
+        {blocks.map((block, index) => (
+        <Block key={index}/>
+      ))}
+        </ScrollView>
+      <Button title="Thêm Khối" onPress={addBlock} />
+      <Button title= "Delete khoi" onPress={deleteBlock}/>
     <Pressable
         style={[styles.circleButton]}
-        onPress={() => setModalVisible(true)}>
+        onPress={() => setModalVisible(true)}
+        >
         <Image source = {require("./assets/plus.png")} style = { { width: 50, height: 50, tintColor:"#fff" }}></Image>
     </Pressable>
     <View style={styles.toolbar}>
@@ -237,5 +268,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  box:{
+    height: 150,
+    width:150,
+    backgroundColor: '#fff',
+    borderRadius: 20,
   },
 });
