@@ -1,25 +1,27 @@
 import React, {useState} from 'react';
 import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image,TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {LinearGradient} from "expo-linear-gradient";
 import { useFonts } from 'expo-font';
 
-const Block = () =>{
+function Block (){
+  const navigation = useNavigation();
   return(
     <TouchableOpacity
     style = {styles.box}
     accessible={true}
     accessibilityLabel="Tap me!"
-    // onPress={() => navigation.navigate('ScreenView')}
+    onPress={() => navigation.navigate('ScreenView')}
     >
     <View style={styles.button}>
     <Text style={styles.buttonText}>Press me!</Text>
     </View>
     </TouchableOpacity>
-  )
-};
+  
+  );
+}
 function HomeScreen({ navigation }) {
   const [fontsLoaded, fontError] = useFonts({
     "Pacifico": require("./assets/fonts/Pacifico-Regular.ttf"),
@@ -116,11 +118,14 @@ return (
         </View>
         </Modal>
       </View>
-        <ScrollView>
+      
+      <ScrollView style = {{flexDirection:'row'}}> 
         {blocks.map((block, index) => (
         <Block key={index}/>
       ))}
         </ScrollView>
+      
+  
       <Button title="Thêm Khối" onPress={addBlock} />
       <Button title= "Delete khoi" onPress={deleteBlock}/>
     <Pressable
@@ -157,6 +162,13 @@ function SecondScreen() {
     </View>
   );
 }
+function ScreenView(){
+  return(
+    <View>
+      <Text>Hello</Text>
+    </View>
+  );
+}
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -166,6 +178,7 @@ export default function App() {
         <Stack.Navigator initialRouteName="Menu">
           <Stack.Screen name="Menu" component={HomeScreen} options={{ headerShown: false }}/>
           <Stack.Screen name="Setting" component={SecondScreen} />
+          <Stack.Screen name ="ScreenView" component={ ScreenView} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
