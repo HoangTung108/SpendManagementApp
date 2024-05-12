@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, Alert, Modal, Pressable, Image,TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, Alert, Modal, Pressable, Image,TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import { useFonts } from 'expo-font';
 import { styles } from '../Components/Style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {useNavigation } from '@react-navigation/native';
+
 function Block (){
     const navigation = useNavigation();
     return(
       <TouchableOpacity
       style = {styles.box}
       accessible={true}
-      accessibilityLabel="Tap me!"
       onPress={() => navigation.navigate('Day')}
       >
       <View style={styles.button}>
-      <Text style={styles.buttonText}>Press me!</Text>
+      <Text style={styles.buttonText}>Day:</Text>
       </View>
       </TouchableOpacity>
     );
@@ -32,6 +32,7 @@ export const HomeScreen = ({ navigation }) => {
     const [onPress, setOnPress] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
     const [blocks, setBlocks] = useState([]);
+    const [date, setDate] = useState('');
     const handlePress = (isAdding) => {
       const num = parseFloat(number);
       if (!isNaN(num) && typeof text === 'string' && text.trim() !== '') {
@@ -61,6 +62,7 @@ export const HomeScreen = ({ navigation }) => {
   
     const addBlock = () => {
       setBlocks([...blocks, {}]);
+      setDate(date + 1);
     };
     const deleteBlock = (index) => {
       const newBlocks = [...blocks];
@@ -116,13 +118,18 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           </Modal>
         </View>
-        <ScrollView > 
-          {blocks.map((block, index) => (
-          <Block key={index}/>
-        ))}
-          </ScrollView>
+        
+        <ScrollView>
+        <FlatList 
+         data = {blocks}
+         renderItem={({ item }) => <Block />}
+         numColumns={2} 
+         ItemSeparatorComponent={() => <View style={styles.separator} />}/>
+        </ScrollView>
         <Button title="Thêm Khối" onPress={addBlock} />
         <Button title= "Delete khoi" onPress={deleteBlock}/>
+     
+    
       <Pressable
           style={[styles.circleButton]}
           onPress={() => setModalVisible(true)}

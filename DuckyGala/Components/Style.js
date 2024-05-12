@@ -97,10 +97,15 @@ export const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     box:{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        left: 30,
+      flexDirection: 'row',
       height: 150,
       width:150,
       backgroundColor: '#fff',
       borderRadius: 20,
+     
     },
     scrollview:{
         flexDirection:'column',  justifyContent: 'space-around',
@@ -120,5 +125,8 @@ export const styles = StyleSheet.create({
         right: 30,
         zIndex:1,
     },
+    separator: {
+        height: 0,
+      },
   });
   
