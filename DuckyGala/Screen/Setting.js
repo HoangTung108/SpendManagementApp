@@ -15,5 +15,5 @@ export const Setting = (navigation) => {
                     value={isEnabled}
                   />
                 </View>
-              );
+        );
 }

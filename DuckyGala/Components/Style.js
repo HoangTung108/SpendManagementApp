@@ -106,6 +106,19 @@ export const styles = StyleSheet.create({
         flexDirection:'column',  justifyContent: 'space-around',
       width: '100%',
       paddingTop: 600,
-    }
+    },
+    circleButtonAdd:{
+        width: '20%',
+        height: "30%",
+        borderRadius: "100%",
+        backgroundColor: '#ffb8d0',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        alignSelf: 'flex-end',
+        top:30,
+        right: 30,
+        zIndex:1,
+    },
   });
   

@@ -12,16 +12,14 @@ function Block (){
       style = {styles.box}
       accessible={true}
       accessibilityLabel="Tap me!"
-      onPress={() => navigation.navigate('ScreenView')}
+      onPress={() => navigation.navigate('Day')}
       >
       <View style={styles.button}>
       <Text style={styles.buttonText}>Press me!</Text>
       </View>
       </TouchableOpacity>
-    
     );
   }
-  
 export const HomeScreen = ({ navigation }) => {
     const [fontsLoaded, fontError] = useFonts({
       "Pacifico": require('../assets/fonts/Pacifico-Regular.ttf'),
@@ -118,7 +116,6 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           </Modal>
         </View>
-        
         <ScrollView > 
           {blocks.map((block, index) => (
           <Block key={index}/>
