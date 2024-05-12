@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, Alert, Modal, Pressable, Image,TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Switch} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {HomeScreen} from './Screen/Home'
-
+import { Setting } from './Screen/Setting';
 
 function SecondScreen() {
     const [isEnabled, setIsEnabled] = React.useState(false);
@@ -38,7 +38,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Menu">
           <Stack.Screen name="Menu" component={HomeScreen} options={{ headerShown: false }}/>
-          <Stack.Screen name="Setting" component={SecondScreen} />
+          <Stack.Screen name="Setting" component={Setting} />
           <Stack.Screen name ="ScreenView" component={ ScreenView} />
         </Stack.Navigator>
       </NavigationContainer>

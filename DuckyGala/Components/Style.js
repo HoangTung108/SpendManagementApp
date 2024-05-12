@@ -102,5 +102,10 @@ export const styles = StyleSheet.create({
       backgroundColor: '#fff',
       borderRadius: 20,
     },
+    scrollview:{
+        flexDirection:'column',  justifyContent: 'space-around',
+      width: '100%',
+      paddingTop: 600,
+    }
   });
   

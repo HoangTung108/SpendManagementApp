@@ -4,6 +4,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import { useFonts } from 'expo-font';
 import { styles } from '../Components/Style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useNavigation } from '@react-navigation/native';
 function Block (){
     const navigation = useNavigation();
     return(
@@ -117,14 +118,12 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           </Modal>
         </View>
-{/*         
-        <ScrollView style = {{flexDirection:'column',  justifyContent: 'space-around',
-      width: '100%',
-      paddingTop: 600,}}> 
+        
+        <ScrollView > 
           {blocks.map((block, index) => (
           <Block key={index}/>
         ))}
-          </ScrollView> */}
+          </ScrollView>
         <Button title="Thêm Khối" onPress={addBlock} />
         <Button title= "Delete khoi" onPress={deleteBlock}/>
       <Pressable
