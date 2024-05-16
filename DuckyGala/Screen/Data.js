@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text, Image, Pressable} from 'react-native';
+import {View, Image, Pressable} from 'react-native';
 import {styles} from '../Components/Style';
 export const Data = () =>{
     return (
