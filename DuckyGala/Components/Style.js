@@ -126,7 +126,11 @@ export const styles = StyleSheet.create({
         zIndex:1,
     },
     separator: {
-        height: 0,
+        height: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        right: 30,
+
       },
   });
   

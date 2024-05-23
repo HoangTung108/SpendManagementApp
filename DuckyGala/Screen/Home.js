@@ -15,7 +15,7 @@ function Block (){
       onPress={() => navigation.navigate('Day')}
       >
       <View style={styles.button}>
-      <Text style={styles.buttonText}>Day:</Text>
+      <Text style={styles.buttonText}>Day: </Text>
       </View>
       </TouchableOpacity>
     );
@@ -69,7 +69,11 @@ export const HomeScreen = ({ navigation }) => {
       newBlocks.splice(index, 1);
       setBlocks(newBlocks);
     };
-  
+    const CheckFont = ()=>{
+      if (!fontsLoaded && !fontError) {
+        return null;
+      }
+    };
   return (
       <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
         flexDirection: 'collumn', }}>
@@ -81,7 +85,7 @@ export const HomeScreen = ({ navigation }) => {
           right: 0,
           height: "100%",  position: 'absolute'  }}
         />
-        <Text style={styles.headertext}>Home</Text>
+        <Text style={styles.headertext} onLayout={CheckFont}>Home</Text>
         <View style={styles.middle}>
         <Text style={styles.textMid}>Day:</Text>
           <Text style={styles.textMid} onPress={handleParValue}>
@@ -118,7 +122,6 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           </Modal>
         </View>
-        
         <ScrollView>
         <FlatList 
          data = {blocks}
@@ -128,8 +131,6 @@ export const HomeScreen = ({ navigation }) => {
         </ScrollView>
         <Button title="Thêm Khối" onPress={addBlock} />
         <Button title= "Delete khoi" onPress={deleteBlock}/>
-     
-    
       <Pressable
           style={[styles.circleButton]}
           onPress={() => setModalVisible(true)}
