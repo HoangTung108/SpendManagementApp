@@ -69,11 +69,7 @@ export const HomeScreen = ({ navigation }) => {
       newBlocks.splice(index, 1);
       setBlocks(newBlocks);
     };
-    const CheckFont = ()=>{
-      if (!fontsLoaded && !fontError) {
-        return null;
-      }
-    };
+
   return (
       <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: insets.top ,
         flexDirection: 'collumn', }}>
@@ -85,7 +81,7 @@ export const HomeScreen = ({ navigation }) => {
           right: 0,
           height: "100%",  position: 'absolute'  }}
         />
-        <Text style={styles.headertext} onLayout={CheckFont}>Home</Text>
+        <Text style={styles.headertext}>Home</Text>
         <View style={styles.middle}>
         <Text style={styles.textMid}>Day:</Text>
           <Text style={styles.textMid} onPress={handleParValue}>
