@@ -136,8 +136,12 @@ export const styles = StyleSheet.create({
         position: 'relative',
         height: "30%",
         width: "100%",
-
-
       },
+      cancelImage: {
+        left: "30%",
+        bottom: "30%",
+        width: "5%",
+        height: "5%",
+      }
   });
   
