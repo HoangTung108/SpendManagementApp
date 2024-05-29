@@ -16,6 +16,7 @@ function Block (){
       >
       <View style={styles.button}>
       <Text style={styles.buttonText}>Day: </Text>
+      <Image source = {require("./assets/plus.png")}></Image>
       </View>
       </TouchableOpacity>
     );
@@ -118,7 +119,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           </Modal>
         </View>
-        <ScrollView>
+        <ScrollView style ={ styles.scrollview}>
         <FlatList 
          data = {blocks}
          renderItem={({ item }) => <Block />}
@@ -129,7 +130,7 @@ export const HomeScreen = ({ navigation }) => {
         <Button title= "Delete khoi" onPress={deleteBlock}/>
       <Pressable
           style={[styles.circleButton]}
-          onPress={() => setModalVisible(true)}
+          onPress={addBlock}
           >
           <Image source = {require("../assets/plus.png")} style = { { width: 50, height: 50, tintColor:"#fff" }}></Image>
       </Pressable>

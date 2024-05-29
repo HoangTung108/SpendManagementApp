@@ -132,5 +132,12 @@ export const styles = StyleSheet.create({
         right: 30,
 
       },
+      scrollview: {
+        position: 'relative',
+        height: "30%",
+        width: "100%",
+
+
+      },
   });
   
